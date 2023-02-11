@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 1
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '18'
           cache: 'npm'
       - name: Install & Build
         run: |
@@ -26,13 +26,13 @@ jobs:
         run: |
           npm run lint
       - name: Waiting for 200 from the Netlify Preview
-        uses: jakepartusch/wait-for-netlify-action@v1.3
+        uses: jakepartusch/wait-for-netlify-action@v1.4
         id: waitFor200
         with:
           site_name: '11st-starter-kit'
           max_timeout: 60
       - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v8
+        uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
             ${{ steps.waitFor200.outputs.url }}
